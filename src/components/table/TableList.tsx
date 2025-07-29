@@ -2,7 +2,7 @@
 import React from "react";
 import { Table } from "antd";
 import { ItemToList } from "@/types";
-import { ButtonAction } from "../intex";
+import { ButtonAction, CheckBoxAction } from "../intex";
 
 interface InputData {
   list: ItemToList[];
@@ -24,17 +24,17 @@ function TableList({ list }: InputData) {
     {
       title: "Done",
       key: "actionDone",
-      render: ({ id, state }) => <ButtonAction />,
+      render: ({ id, state }) => <CheckBoxAction id={id} state={state} />,
     },
     {
       title: "Update",
       key: "actionUpdate",
-      render: ({ id, state }) => <ButtonAction />,
+      render: ({ id }) => <ButtonAction type="Update" id={id} desable={true} />,
     },
     {
       title: "Delete",
       key: "actionDelete",
-      render: ({ id, state }) => <ButtonAction />,
+      render: ({ id }) => <ButtonAction type="Delete" id={id} desable={true} />,
     },
   ];
 
