@@ -1,7 +1,7 @@
 import { ItemToList } from "@/types";
 
 export const myHomeworks: ItemToList[] = [
-  { id: "1One1", description: "Hello world", state: false },
+  { id: "1One1", description: "Hello world", state: true },
   { id: "2two2", description: "My name is Miguel", state: false },
   {
     id: "3three3",
@@ -13,5 +13,5 @@ export const myHomeworks: ItemToList[] = [
     description: "Tomorrow I don't go to class",
     state: false,
   },
-  { id: "5five5", description: "I need money", state: false },
+  { id: "5five5", description: "I need money", state: true },
 ];
