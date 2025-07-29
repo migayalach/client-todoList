@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import InputTask from "../inputTask/InputTask";
 
 function List() {
   return (
-    <div>List</div>
-  )
+    <div>
+      <h1>My to-do list today</h1>
+      <InputTask />
+    </div>
+  );
 }
 
-export default List
+export default List;
