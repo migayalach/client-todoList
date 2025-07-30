@@ -7,6 +7,7 @@ import type { ColumnsType } from "antd/es/table";
 
 interface InputData {
   list: ItemToList[];
+  actionEdit: (task: ItemToList) => void;
 }
 
 interface RenderInput {
@@ -15,7 +16,7 @@ interface RenderInput {
   state: boolean;
 }
 
-function TableList({ list }: InputData) {
+function TableList({ list, actionEdit }: InputData) {
   const [data, setData] = useState<ItemToList[]>([]);
 
   const handleFlag = (id: string, newState: boolean) => {
@@ -30,7 +31,8 @@ function TableList({ list }: InputData) {
     if (type === "Delete") {
       setData(data.filter((index) => index.id !== id));
     } else if (type === "Update") {
-      console.log("update task", id);
+      const task = data.find((index) => index.id === id) as ItemToList;
+      actionEdit(task);
     }
   };
 

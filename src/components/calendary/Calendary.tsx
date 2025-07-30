@@ -1,9 +1,15 @@
-import React from 'react'
+"use client";
+import React from "react";
+import type { DatePickerProps } from "antd";
+import { DatePicker } from "antd";
+import type { Dayjs } from "dayjs";
 
 function Calendary() {
-  return (
-    <div>Calendary</div>
-  )
+  const onChange: DatePickerProps<Dayjs[]>["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
+  return <DatePicker onChange={onChange} needConfirm />;
 }
 
-export default Calendary
+export default Calendary;

@@ -10,16 +10,9 @@ import { TableList } from "../intex";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: "#1677ff",
-    }}
-  />
-);
 
 function InputTask() {
+  const [task, setTask] = useState<boolean>(false);
   const [list, setList] = useState<ItemToList[]>([]);
   const [item, setItem] = useState<ItemToList>({
     id: "",
@@ -28,18 +21,82 @@ function InputTask() {
   });
   const [update, setUpdate] = useState<boolean>(false);
 
-  const onSearch: SearchProps["onSearch"] = (value: string) => {
-    const addNewItem: ItemToList = {
-      id: uuidv4(),
-      description: value,
-      state: false,
+  // ⬇️ Microphone: function to start voice recognition
+  const handleMicClick = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Tu navegador no soporta reconocimiento de voz");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "es-ES";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const speechResult = event.results[0][0].transcript;
+      setItem((prev) => ({
+        ...prev,
+        description: speechResult,
+      }));
     };
-    setList([...list, addNewItem]);
-    setUpdate(true);
+  };
+
+  const suffix = (
+    <AudioOutlined
+      onClick={handleMicClick}
+      style={{
+        fontSize: 16,
+        color: "#1677ff",
+        cursor: "pointer",
+      }}
+    />
+  );
+
+  const editTask = (task: ItemToList) => {
+    setItem(task);
+    setTask(true);
+  };
+
+  const updateItem = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItem({
+      ...item,
+      description: event.target.value,
+    });
+  };
+
+  const addItems: SearchProps["onSearch"] = (value: string) => {
+    if (value.length) {
+      if (task) {
+        list.forEach((index) => {
+          if (index.id === item.id) {
+            index.description = item.description;
+          }
+        });
+        setTask(false);
+      } else {
+        const addNewItem: ItemToList = {
+          id: uuidv4(),
+          description: value,
+          state: false,
+        };
+        setList([...list, addNewItem]);
+        setUpdate(true);
+      }
+    }
+    setItem({
+      id: "",
+      description: "",
+      state: false,
+    });
   };
 
   useEffect(() => {
-    // TODO LLAMAMOS A LA BASE DE DATOS A TRAER LAS TAREAS
     setList([...myHomeworks]);
     return () => {
       setList([]);
@@ -66,13 +123,16 @@ function InputTask() {
     <div>
       <Search
         placeholder="input search text"
-        enterButton="Add"
+        enterButton={task ? "Update" : "Add"}
         size="large"
         suffix={suffix}
-        onSearch={onSearch}
+        value={item.description}
+        onChange={updateItem}
+        onSearch={addItems}
+        allowClear
         className="bg-black"
       />
-      <TableList list={list} />
+      <TableList list={list} actionEdit={editTask} />
     </div>
   );
 }
