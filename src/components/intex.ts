@@ -5,8 +5,9 @@ import ButtonAction from "./buttons/buttonAction/ButtonAction";
 import ButtonLogin from "./buttons/buttonLogin/ButtonLogin";
 import ButtonSignUp from "./buttons/buttonSignUp/ButtonSignUp";
 import CheckBoxAction from "./checkBoxAction/CheckBoxAction";
-import Message from "./message/Message";
 import NavBar from "./navBar/NavBar";
+import Calendary from "./calendary/Calendary";
+import Modals from "./modal/Modals";
 
 export {
   List,
@@ -16,6 +17,7 @@ export {
   ButtonLogin,
   ButtonSignUp,
   CheckBoxAction,
-  Message,
   NavBar,
+  Calendary,
+  Modals,
 };

@@ -1,20 +1,40 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { ItemToList } from "@/types";
+import { ActionTask, ItemToList } from "@/types";
 import { ButtonAction, CheckBoxAction } from "../intex";
+import type { ColumnsType } from "antd/es/table";
 
 interface InputData {
   list: ItemToList[];
 }
 
-function TableList({ list }: InputData) {
-  interface DataType {
-    key: React.Key;
-    address: string;
-  }
+interface RenderInput {
+  id: string;
+  description?: string;
+  state: boolean;
+}
 
-  const columns: any = [
+function TableList({ list }: InputData) {
+  const [data, setData] = useState<ItemToList[]>([]);
+
+  const handleFlag = (id: string, newState: boolean) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, state: newState } : item
+      )
+    );
+  };
+
+  const actionTask = (id: string, type: ActionTask) => {
+    if (type === "Delete") {
+      setData(data.filter((index) => index.id !== id));
+    } else if (type === "Update") {
+      console.log("update task", id);
+    }
+  };
+
+  const columns: ColumnsType<RenderInput> = [
     { title: "N°", dataIndex: "numberItem", key: "numberItem" },
     {
       title: "Description",
@@ -24,36 +44,57 @@ function TableList({ list }: InputData) {
     {
       title: "Done",
       key: "actionDone",
-      render: ({ id, state }) => <CheckBoxAction id={id} state={state} />,
+      render: ({ id, state }: RenderInput) => (
+        <CheckBoxAction id={id} state={state} action={handleFlag} />
+      ),
     },
     {
       title: "Update",
       key: "actionUpdate",
-      render: ({ id }) => <ButtonAction type="Update" id={id} desable={true} />,
+      render: ({ id, state }: RenderInput) => (
+        <ButtonAction
+          type="Update"
+          id={id}
+          desable={state}
+          action={actionTask}
+        />
+      ),
     },
     {
       title: "Delete",
       key: "actionDelete",
-      render: ({ id }) => <ButtonAction type="Delete" id={id} desable={true} />,
+      render: ({ id, state }: RenderInput) => (
+        <ButtonAction
+          type="Delete"
+          id={id}
+          desable={state}
+          action={actionTask}
+        />
+      ),
     },
   ];
 
-  const listMap = (list: any) => {
-    return list.map(({ id, description, state }: any, index: number) => ({
-      key: index,
-      numberItem: index + 1,
-      id,
-      description,
-      state,
-    }));
+  const listMap = (list: RenderInput[]) => {
+    return list.map(
+      ({ id, description, state }: RenderInput, index: number) => ({
+        key: index,
+        numberItem: index + 1,
+        id,
+        description,
+        state,
+      })
+    );
   };
 
+  useEffect(() => {
+    setData(list);
+    return () => {
+      setData([]);
+    };
+  }, [list]);
+
   return (
-    <Table<DataType>
-      columns={columns}
-      dataSource={listMap(list)}
-      pagination={false}
-    />
+    <Table columns={columns} dataSource={listMap(data)} pagination={false} />
   );
 }
 
