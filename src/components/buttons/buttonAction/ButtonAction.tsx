@@ -15,6 +15,7 @@ function ButtonAction({ type, id, desable, action }: DataButtonInput) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const actionHandler = () => {
     if (type === "Delete") setIsModalOpen(true);
+    else if (type === "Update") action(id, "Update");
   };
 
   const handleOk = () => {
