@@ -8,6 +8,9 @@ import CheckBoxAction from "./checkBoxAction/CheckBoxAction";
 import NavBar from "./navBar/NavBar";
 import Calendary from "./calendary/Calendary";
 import Modals from "./modal/Modals";
+import Texts from "./texts/Texts";
+import MyNumbers from "./myNumbers/MyNumbers";
+import MyActivity from "./myActivity/MyActivity";
 
 export {
   List,
@@ -20,4 +23,7 @@ export {
   NavBar,
   Calendary,
   Modals,
+  Texts,
+  MyNumbers,
+  MyActivity,
 };
