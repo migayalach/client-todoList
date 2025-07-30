@@ -3,3 +3,5 @@ export interface ItemToList {
   description: string;
   state: boolean;
 }
+
+export type ActionTask = "Delete" | "Update";
