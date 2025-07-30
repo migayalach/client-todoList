@@ -1,9 +1,14 @@
-import React from 'react'
+import { MyActivity, MyNumbers } from "@/components/intex";
+import React from "react";
 
 function page() {
   return (
-    <div>About</div>
-  )
+    <div>
+      <h1>About</h1>
+      <MyNumbers />
+      <MyActivity />
+    </div>
+  );
 }
 
-export default page
+export default page;
