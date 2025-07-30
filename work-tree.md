@@ -41,10 +41,16 @@
                 ├── List.tsx
             └── 📁modal
                 ├── Modals.tsx
+            └── 📁myActivity
+                ├── MyActivity.tsx
+            └── 📁myNumbers
+                ├── MyNumbers.tsx
             └── 📁navBar
                 ├── NavBar.tsx
             └── 📁table
                 ├── TableList.tsx
+            └── 📁texts
+                ├── Texts.tsx
             ├── intex.ts
         └── 📁mocks
             ├── index.ts
