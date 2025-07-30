@@ -20,6 +20,7 @@ const suffix = (
 );
 
 function InputTask() {
+  const [task, setTask] = useState<boolean>(false);
   const [list, setList] = useState<ItemToList[]>([]);
   const [item, setItem] = useState<ItemToList>({
     id: "",
@@ -28,14 +29,42 @@ function InputTask() {
   });
   const [update, setUpdate] = useState<boolean>(false);
 
-  const onSearch: SearchProps["onSearch"] = (value: string) => {
-    const addNewItem: ItemToList = {
-      id: uuidv4(),
-      description: value,
+  const editTask = (task: ItemToList) => {
+    setItem(task);
+    setTask(true);
+  };
+
+  const updateItem = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItem({
+      ...item,
+      description: event.target.value,
+    });
+  };
+
+  const addItems: SearchProps["onSearch"] = (value: string) => {
+    if (value.length) {
+      if (task) {
+        list.forEach((index) => {
+          if (index.id === item.id) {
+            index.description = item.description;
+          }
+        });
+        setTask(false);
+      } else {
+        const addNewItem: ItemToList = {
+          id: uuidv4(),
+          description: value,
+          state: false,
+        };
+        setList([...list, addNewItem]);
+        setUpdate(true);
+      }
+    }
+    setItem({
+      id: "",
+      description: "",
       state: false,
-    };
-    setList([...list, addNewItem]);
-    setUpdate(true);
+    });
   };
 
   useEffect(() => {
@@ -66,13 +95,16 @@ function InputTask() {
     <div>
       <Search
         placeholder="input search text"
-        enterButton="Add"
+        enterButton={task ? "Update" : "Add"}
         size="large"
         suffix={suffix}
-        onSearch={onSearch}
+        value={item.description}
+        onChange={updateItem}
+        onSearch={addItems}
+        allowClear
         className="bg-black"
       />
-      <TableList list={list} />
+      <TableList list={list} actionEdit={editTask} />
     </div>
   );
 }
