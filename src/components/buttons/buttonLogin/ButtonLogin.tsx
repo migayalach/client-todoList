@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
+import { SignInForm } from "@/components/intex";
 
 function ButtonLogin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,18 +21,17 @@ function ButtonLogin() {
   return (
     <div className="ml-5">
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        Sign In
       </Button>
       <Modal
-        title="Basic Modal"
+        title="Welcome"
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <SignInForm />
       </Modal>
     </div>
   );
