@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import { SignInForm } from "@/components/intex";
+import { Form } from "@/components/intex";
 
 function ButtonLogin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +31,7 @@ function ButtonLogin() {
         onCancel={handleCancel}
         footer={null}
       >
-        <SignInForm />
+        <Form />
       </Modal>
     </div>
   );
