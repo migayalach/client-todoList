@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function Texts() {
-  return (
-    <div>Texts</div>
-  )
+function Texts({ text }: { text: string }) {
+  return <p>{text}</p>;
 }
 
-export default Texts
+export default Texts;
