@@ -2,7 +2,6 @@
 import { ItemToList } from "@/types";
 import React, { useEffect, useState } from "react";
 import { myHomeworks } from "@/mocks";
-import { AudioOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { v4 as uuidv4 } from "uuid";
@@ -20,43 +19,6 @@ function InputTask() {
     state: false,
   });
   const [update, setUpdate] = useState<boolean>(false);
-
-  // ⬇️ Microphone: function to start voice recognition
-  const handleMicClick = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition || (window as any).webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Tu navegador no soporta reconocimiento de voz");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "es-ES";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.start();
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const speechResult = event.results[0][0].transcript;
-      setItem((prev) => ({
-        ...prev,
-        description: speechResult,
-      }));
-    };
-  };
-
-  const suffix = (
-    <AudioOutlined
-      onClick={handleMicClick}
-      style={{
-        fontSize: 16,
-        color: "#1677ff",
-        cursor: "pointer",
-      }}
-    />
-  );
 
   const editTask = (task: ItemToList) => {
     setItem(task);
@@ -125,7 +87,6 @@ function InputTask() {
         placeholder="input search text"
         enterButton={task ? "Update" : "Add"}
         size="large"
-        suffix={suffix}
         value={item.description}
         onChange={updateItem}
         onSearch={addItems}
