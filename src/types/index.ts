@@ -5,3 +5,5 @@ export interface ItemToList {
 }
 
 export type ActionTask = "Delete" | "Update";
+
+export type TextRender = "Sign In" | "Sing Up" | "Restore";
