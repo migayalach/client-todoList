@@ -12,7 +12,7 @@ import MyNumbers from "./myNumbers/MyNumbers";
 import MyActivity from "./myActivity/MyActivity";
 import Profile from "./profile/Profile";
 import MyMenu from "./menu/MyMenu";
-import SignInForm from "./form/SignInForm";
+import Form from "./form/Form";
 import ChoseLogin from "./buttons/choseLogin/ChoseLogin";
 
 export {
@@ -30,6 +30,6 @@ export {
   MyActivity,
   Profile,
   MyMenu,
-  SignInForm,
+  Form,
   ChoseLogin,
 };
