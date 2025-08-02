@@ -1,11 +1,5 @@
 ```
 └── 📁client
-    └── 📁public
-        ├── file.svg
-        ├── globe.svg
-        ├── next.svg
-        ├── vercel.svg
-        ├── window.svg
     └── 📁src
         └── 📁__tests__
             └── 📁integration
@@ -15,7 +9,7 @@
         └── 📁.github
             └── 📁workflows
         └── 📁app
-            └── 📁about
+            └── 📁[idUser]
                 ├── page.tsx
             └── 📁instructions
                 ├── page.tsx
@@ -29,16 +23,24 @@
                     ├── ButtonAction.tsx
                 └── 📁buttonLogin
                     ├── ButtonLogin.tsx
-                └── 📁buttonSignUp
-                    ├── ButtonSignUp.tsx
+                └── 📁choseLogin
+                    ├── ChoseLogin.tsx
             └── 📁calendary
                 ├── Calendary.tsx
             └── 📁checkBoxAction
                 ├── CheckBoxAction.tsx
+            └── 📁form
+                └── 📁FormRestorePassword
+                    ├── FormRestorePassword.tsx
+                └── 📁FormSign
+                    ├── FormSign.tsx
+                ├── Form.tsx
             └── 📁inputTask
                 ├── InputTask.tsx
             └── 📁list
                 ├── List.tsx
+            └── 📁menu
+                ├── MyMenu.tsx
             └── 📁modal
                 ├── Modals.tsx
             └── 📁myActivity
@@ -47,15 +49,25 @@
                 ├── MyNumbers.tsx
             └── 📁navBar
                 ├── NavBar.tsx
+            └── 📁profile
+                ├── Profile.tsx
+            └── 📁responses
+                ├── BadRequest.tsx
+                ├── NotFound.tsx
+                ├── Processing.tsx
             └── 📁table
                 ├── TableList.tsx
             └── 📁texts
                 ├── Texts.tsx
             ├── intex.ts
+        └── 📁context
+            ├── authContext.tsx
         └── 📁mocks
             ├── index.ts
         └── 📁types
             ├── index.ts
+        ├── firebase.ts
+    ├── .env
     ├── .gitignore
     ├── docker-compose.yml
     ├── Dockerfile
