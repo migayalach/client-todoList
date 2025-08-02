@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { app } from "@/firebase";
 import { TextRender } from "@/types";
+import { useAuth } from "@/context/authContext";
 
 type FieldType = {
   email: string;
@@ -23,6 +24,7 @@ interface DataState {
 const auth = getAuth(app);
 
 function FormSign({ text }: { text: TextRender }) {
+  const { signUp } = useAuth();
   const [data, setData] = useState<DataState>({
     email: "",
     password: "",
@@ -38,11 +40,25 @@ function FormSign({ text }: { text: TextRender }) {
   const onFinish: FormProps<FieldType>["onFinish"] = async () => {
     try {
       if (text === "Sign In") {
-        await signInWithEmailAndPassword(auth, data.email, data.password);
+        const {
+          operationType,
+          user: { email, uid, photoURL, displayName },
+        } = await signInWithEmailAndPassword(auth, data.email, data.password);
+        signUp({ operationType, email, uid, photoURL, displayName });
       } else if (text === "Sing Up") {
-        await createUserWithEmailAndPassword(auth, data.email, data.password);
+        const {
+          operationType,
+          user: { email, uid, photoURL, displayName },
+        } = await createUserWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password
+        );
+        signUp({ operationType, email, uid, photoURL, displayName });
       }
+      // signUp(data.email, data.password);
     } catch (error) {
+      // TODO CALL ALER COMPONENT
       // console.error(error.message);
       // alert(error.message);
     }

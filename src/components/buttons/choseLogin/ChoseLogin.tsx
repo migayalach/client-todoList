@@ -4,6 +4,7 @@ import { Button } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from "@/firebase";
+import { useAuth } from "@/context/authContext";
 
 type InputType = "facebook" | "google";
 
@@ -16,10 +17,16 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 function ChoseLogin({ text, type }: InputChoseLogin) {
+  const { signUp } = useAuth();
+
   const handleGoogleAuth = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      alert("Autenticación con Google exitosa");
+      const {
+        operationType,
+        user: { email, uid, photoURL, displayName },
+      } = await signInWithPopup(auth, googleProvider);
+      signUp({operationType, email, uid, photoURL, displayName});
+      // alert("Autenticación con Google exitosa");
     } catch (error) {
       // console.error(error.message);
     }
