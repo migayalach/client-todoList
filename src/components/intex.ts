@@ -14,6 +14,9 @@ import Profile from "./profile/Profile";
 import MyMenu from "./menu/MyMenu";
 import Form from "./form/Form";
 import ChoseLogin from "./buttons/choseLogin/ChoseLogin";
+import BadRequest from "./responses/BadRequest";
+import NotFound from "./responses/NotFound";
+import Processing from "./responses/Processing";
 
 export {
   List,
@@ -32,4 +35,7 @@ export {
   MyMenu,
   Form,
   ChoseLogin,
+  BadRequest,
+  NotFound,
+  Processing,
 };

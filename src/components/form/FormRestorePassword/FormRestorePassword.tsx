@@ -62,10 +62,12 @@ function FormRestorePassword({ text }: { text: TextRender }) {
       >
         <Input name="email" value={data.email} onChange={onChangeData} />
       </Form.Item>
-      <ReCAPTCH
-        sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
-        onChange={(val) => setCapVal(val)}
-      />
+      {data.email.length > 10 && (
+        <ReCAPTCH
+          sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
+          onChange={(val) => setCapVal(val)}
+        />
+      )}
       <Button type="primary" htmlType="submit" disabled={!capVal}>
         {text}
       </Button>
