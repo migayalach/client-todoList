@@ -1,8 +1,15 @@
+"use client";
 import React from "react";
 import { ButtonLogin, MyMenu } from "../intex";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 function NavBar() {
+  const { user, login } = useAuth();
+  if (login) {
+    console.log("Usuario logueado:", user?.email);
+    console.log(login);
+  }
   return (
     <div className="flex justify-between items-center">
       <div>
@@ -11,8 +18,7 @@ function NavBar() {
       <div className="flex">
         <Link href="./">Home</Link>
         <Link href="/instructions">Instructions</Link>
-        <ButtonLogin />
-        <MyMenu />
+        {!user?.email?.length && !login ? <ButtonLogin /> : <MyMenu />}
       </div>
     </div>
   );
