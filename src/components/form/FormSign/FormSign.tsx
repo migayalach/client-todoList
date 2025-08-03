@@ -41,20 +41,18 @@ function FormSign({ text }: { text: TextRender }) {
     try {
       if (text === "Sign In") {
         const {
-          operationType,
           user: { email, uid, photoURL, displayName },
         } = await signInWithEmailAndPassword(auth, data.email, data.password);
-        signUp({ operationType, email, uid, photoURL, displayName });
+        signUp({ email, uid, photoURL, displayName });
       } else if (text === "Sing Up") {
         const {
-          operationType,
           user: { email, uid, photoURL, displayName },
         } = await createUserWithEmailAndPassword(
           auth,
           data.email,
           data.password
         );
-        signUp({ operationType, email, uid, photoURL, displayName });
+        signUp({ email, uid, photoURL, displayName });
       }
       // signUp(data.email, data.password);
     } catch (error) {

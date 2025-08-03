@@ -2,7 +2,12 @@
 import React from "react";
 import { Button } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  linkWithCredential,
+} from "firebase/auth";
 import { app } from "@/firebase";
 import { useAuth } from "@/context/authContext";
 
@@ -21,11 +26,25 @@ function ChoseLogin({ text, type }: InputChoseLogin) {
 
   const handleGoogleAuth = async () => {
     try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const googleCredential = GoogleAuthProvider.credentialFromResult(result);
+
+      if (auth.currentUser && googleCredential) {
+        await linkWithCredential(auth.currentUser, googleCredential);
+        const user = auth.currentUser;
+        signUp({
+          email: user.email,
+          uid: user.uid,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+        });
+        return;
+      }
+
       const {
-        operationType,
         user: { email, uid, photoURL, displayName },
-      } = await signInWithPopup(auth, googleProvider);
-      signUp({operationType, email, uid, photoURL, displayName});
+      } = result;
+      signUp({ email, uid, photoURL, displayName });
       // alert("Autenticación con Google exitosa");
     } catch (error) {
       // console.error(error.message);
