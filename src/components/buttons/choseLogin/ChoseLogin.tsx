@@ -2,13 +2,7 @@
 import React from "react";
 import { Button } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  linkWithCredential,
-} from "firebase/auth";
-import { app } from "@/firebase";
+
 import { useAuth } from "@/context/authContext";
 
 type InputType = "facebook" | "google";
@@ -18,34 +12,13 @@ interface InputChoseLogin {
   type: InputType;
 }
 
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-
 function ChoseLogin({ text, type }: InputChoseLogin) {
-  const { signUp } = useAuth();
+  const { signGoogle } = useAuth();
 
   const handleGoogleAuth = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const googleCredential = GoogleAuthProvider.credentialFromResult(result);
-
-      if (auth.currentUser && googleCredential) {
-        await linkWithCredential(auth.currentUser, googleCredential);
-        const user = auth.currentUser;
-        signUp({
-          email: user.email,
-          uid: user.uid,
-          photoURL: user.photoURL,
-          displayName: user.displayName,
-        });
-        return;
-      }
-
-      const {
-        user: { email, uid, photoURL, displayName },
-      } = result;
-      signUp({ email, uid, photoURL, displayName });
-      // alert("Autenticación con Google exitosa");
+      const r = await signGoogle();
+      console.log(r);
     } catch (error) {
       // console.error(error.message);
     }
