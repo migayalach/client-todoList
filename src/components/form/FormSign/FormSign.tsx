@@ -2,12 +2,6 @@
 import React, { useState } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { app } from "@/firebase";
 import { TextRender } from "@/types";
 import { useAuth } from "@/context/authContext";
 
@@ -21,10 +15,8 @@ interface DataState {
   password: string;
 }
 
-const auth = getAuth(app);
-
 function FormSign({ text }: { text: TextRender }) {
-  const { signUp } = useAuth();
+  const { singUpEmail, signInEmail } = useAuth();
   const [data, setData] = useState<DataState>({
     email: "",
     password: "",
@@ -40,23 +32,12 @@ function FormSign({ text }: { text: TextRender }) {
   const onFinish: FormProps<FieldType>["onFinish"] = async () => {
     try {
       if (text === "Sign In") {
-        const {
-          operationType,
-          user: { email, uid, photoURL, displayName },
-        } = await signInWithEmailAndPassword(auth, data.email, data.password);
-        signUp({ operationType, email, uid, photoURL, displayName });
+        const ddd = await signInEmail(data.email, data.password);
+        console.log(ddd);
       } else if (text === "Sing Up") {
-        const {
-          operationType,
-          user: { email, uid, photoURL, displayName },
-        } = await createUserWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password
-        );
-        signUp({ operationType, email, uid, photoURL, displayName });
+        const up = await singUpEmail(data.email, data.password);
+        console.log(up);
       }
-      // signUp(data.email, data.password);
     } catch (error) {
       // TODO CALL ALER COMPONENT
       // console.error(error.message);

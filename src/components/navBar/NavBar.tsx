@@ -6,10 +6,7 @@ import { useAuth } from "@/context/authContext";
 
 function NavBar() {
   const { user, login } = useAuth();
-  if (login) {
-    console.log("Usuario logueado:", user?.email);
-    console.log(login);
-  }
+
   return (
     <div className="flex justify-between items-center">
       <div>
