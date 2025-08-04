@@ -6,7 +6,7 @@ import ButtonLogin from "./buttons/buttonLogin/ButtonLogin";
 import CheckBoxAction from "./checkBoxAction/CheckBoxAction";
 import NavBar from "./navBar/NavBar";
 import Calendary from "./calendary/Calendary";
-import Modals from "./modal/Modals";
+import ModalChangePassword from "./modal/ModalChangePassword";
 import Texts from "./texts/Texts";
 import MyNumbers from "./myNumbers/MyNumbers";
 import MyActivity from "./myActivity/MyActivity";
@@ -17,6 +17,8 @@ import ChoseLogin from "./buttons/choseLogin/ChoseLogin";
 import BadRequest from "./responses/BadRequest";
 import NotFound from "./responses/NotFound";
 import Processing from "./responses/Processing";
+import ChangePassword from "./buttons/changePassword/ChangePassword";
+import FormChangePassword from "./form/FormChangePassword/FormChangePassword";
 
 export {
   List,
@@ -27,7 +29,7 @@ export {
   CheckBoxAction,
   NavBar,
   Calendary,
-  Modals,
+  ModalChangePassword,
   Texts,
   MyNumbers,
   MyActivity,
@@ -38,4 +40,6 @@ export {
   BadRequest,
   NotFound,
   Processing,
+  ChangePassword,
+  FormChangePassword,
 };
