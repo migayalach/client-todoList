@@ -1,11 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { ButtonLogin, Profile } from "@/components/intex";
+import {
+  ButtonLogin,
+  Profile,
+  ChangePassword,
+  ModalChangePassword,
+} from "@/components/intex";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 function MyMenu() {
+  const { login, user, password } = useAuth();
+
   type MenuItem = Required<MenuProps>["items"][number];
 
   const items: MenuItem[] = [
@@ -19,6 +27,10 @@ function MyMenu() {
         },
         {
           key: "3",
+          label: <ChangePassword />,
+        },
+        {
+          key: "4",
           label: <ButtonLogin />,
         },
       ],
@@ -69,15 +81,26 @@ function MyMenu() {
     }
   };
 
+  useEffect(() => {
+    if (login && password && user?.email) {
+      console.log("open modalp to change password");
+    }
+  }, [login, user, password]);
+
   return (
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={["231"]}
-      openKeys={stateOpenKeys}
-      onOpenChange={onOpenChange}
-      style={{ width: 256 }}
-      items={items}
-    />
+    <>
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={["231"]}
+        openKeys={stateOpenKeys}
+        onOpenChange={onOpenChange}
+        style={{ width: 256 }}
+        items={items}
+      />
+      {password && login && user?.email && (
+        <ModalChangePassword openModal={true} closeModal={null} />
+      )}
+    </>
   );
 }
 
