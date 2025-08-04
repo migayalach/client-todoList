@@ -6,7 +6,17 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  linkWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
 import { app } from "@/firebase";
 
 interface InputAuth {
@@ -19,8 +29,12 @@ interface InputAuth {
 type AuthContextType = {
   user: InputAuth | null;
   login: boolean;
+  password: boolean;
   signUp: (info: InputAuth) => void;
   logout: () => void;
+  signGoogle: () => void;
+  singUpEmail: (email: any, password: any) => void;
+  signInEmail: (email: any, password: any) => void;
 };
 
 /**
@@ -52,10 +66,12 @@ export function AuthProvider({
   /**
    * Local state to save the user if he is in sesion
    */
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState<boolean>(false);
   const [user, setUser] = useState<InputAuth | null>(null);
+  const [password, setPassword] = useState<boolean>(false);
 
   const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
@@ -87,6 +103,40 @@ export function AuthProvider({
     setLogin(true);
   };
 
+  const inputPassword = async (currentUser, credential) => {
+    console.log("in password");
+    await linkWithCredential(currentUser, credential);
+    setPassword(false);
+  };
+
+  const signGoogle = async () => {
+    const x = await signInWithPopup(auth, provider);
+    if (x.user.providerData.length === 1) {
+      console.log("*******************");
+      console.log("memory to change password");
+      console.log("ingresa password");
+      setPassword(true);
+      const credential = EmailAuthProvider.credential(
+        "ayalachavezmiguel@gmail.com",
+        "123456"
+      );
+      if (auth.currentUser) {
+        await inputPassword(auth.currentUser, credential);
+        // await linkWithCredential(auth.currentUser, credential);
+      }
+      console.log("*******************");
+    }
+    return x;
+  };
+
+  const singUpEmail = async (email, password) => {
+    return await createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signInEmail = async (email, password) => {
+    return await signInWithEmailAndPassword(auth, email, password);
+  };
+
   /**
    * Funtion to close sesion
    */
@@ -97,7 +147,18 @@ export function AuthProvider({
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signUp, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        signUp,
+        logout,
+        signGoogle,
+        singUpEmail,
+        signInEmail,
+        password,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
