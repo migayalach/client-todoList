@@ -17,8 +17,7 @@ function ChoseLogin({ text, type }: InputChoseLogin) {
 
   const handleGoogleAuth = async () => {
     try {
-      const r = await signGoogle();
-      console.log(r);
+      signGoogle();
     } catch (error) {
       // console.error(error.message);
     }
