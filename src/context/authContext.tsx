@@ -16,6 +16,7 @@ import {
   signInWithPopup,
   linkWithCredential,
   EmailAuthProvider,
+  updatePassword,
 } from "firebase/auth";
 import { app } from "@/firebase";
 
@@ -33,8 +34,10 @@ type AuthContextType = {
   signUp: (info: InputAuth) => void;
   logout: () => void;
   signGoogle: () => void;
-  singUpEmail: (email: any, password: any) => void;
-  signInEmail: (email: any, password: any) => void;
+  singUpEmail: (email: string, password: string) => void;
+  signInEmail: (email: string, password: string) => void;
+  inputPassword: (password: string) => Promise<boolean>;
+  changePassword: (password: string) => Promise<boolean>;
 };
 
 /**
@@ -68,7 +71,7 @@ export function AuthProvider({
    */
   const [login, setLogin] = useState<boolean>(false);
   const [user, setUser] = useState<InputAuth | null>(null);
-  const [password, setPassword] = useState<boolean>(false);
+  const [password, setPassword] = useState<boolean>(false); 
 
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -103,37 +106,41 @@ export function AuthProvider({
     setLogin(true);
   };
 
-  const inputPassword = async (currentUser, credential) => {
-    console.log("in password");
-    await linkWithCredential(currentUser, credential);
+  const changePassword = async (password: string) => {
+    let state = false;
+    if (auth.currentUser) {
+      await updatePassword(auth.currentUser, password);
+      state = true;
+      return state;
+    }
+    return state;
+  };
+
+  // Function to update password
+  const inputPassword = async (password: string) => {
+    let state = false;
+    if (auth.currentUser && user?.email) {
+      const credential = EmailAuthProvider.credential(user.email, password);
+      linkWithCredential(auth.currentUser, credential);
+      state = true;
+    }
     setPassword(false);
+    return state;
   };
 
   const signGoogle = async () => {
-    const x = await signInWithPopup(auth, provider);
-    if (x.user.providerData.length === 1) {
-      console.log("*******************");
-      console.log("memory to change password");
-      console.log("ingresa password");
+    const { user } = await signInWithPopup(auth, provider);
+    if (user.providerData.length === 1) {
       setPassword(true);
-      const credential = EmailAuthProvider.credential(
-        "ayalachavezmiguel@gmail.com",
-        "123456"
-      );
-      if (auth.currentUser) {
-        await inputPassword(auth.currentUser, credential);
-        // await linkWithCredential(auth.currentUser, credential);
-      }
-      console.log("*******************");
     }
-    return x;
+    return;
   };
 
-  const singUpEmail = async (email, password) => {
+  const singUpEmail = async (email: string, password: string) => {
     return await createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signInEmail = async (email, password) => {
+  const signInEmail = async (email: string, password: string) => {
     return await signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -157,6 +164,8 @@ export function AuthProvider({
         singUpEmail,
         signInEmail,
         password,
+        inputPassword,
+        changePassword,
       }}
     >
       {children}
