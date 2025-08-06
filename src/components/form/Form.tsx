@@ -47,7 +47,7 @@ function Form() {
           </div>
         </div>
 
-        {text === "Sign In" && <ChoseLogin text="Google" type="google" />}
+        {text === "Sign In" && <ChoseLogin text="Google" />}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+tsc --noEmit
+
 BEFORE
 rules_version = '2';
 

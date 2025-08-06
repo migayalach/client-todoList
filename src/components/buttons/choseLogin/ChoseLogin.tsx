@@ -5,14 +5,11 @@ import { GoogleOutlined } from "@ant-design/icons";
 
 import { useAuth } from "@/context/authContext";
 
-type InputType = "facebook" | "google";
-
 interface InputChoseLogin {
   text: string;
-  type: InputType;
 }
 
-function ChoseLogin({ text, type }: InputChoseLogin) {
+function ChoseLogin({ text }: InputChoseLogin) {
   const { signGoogle } = useAuth();
 
   const handleGoogleAuth = async () => {
