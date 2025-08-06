@@ -9,9 +9,17 @@ type FieldType = {
   validatePassword: string;
 };
 
+interface InputFormChangePassword {
+  closeModal?: () => void;
+  actionSign: () => void;
+}
+
 const longValue = 8;
 
-function FormChangePassword({ closeModal, actionSign }) {
+function FormChangePassword({
+  closeModal,
+  actionSign,
+}: InputFormChangePassword) {
   const [capVal, setCapVal] = useState<string | null>(null);
   const [validate, setValidate] = useState<boolean>(false);
   const [info, setInfo] = useState<FieldType>({
@@ -40,12 +48,12 @@ function FormChangePassword({ closeModal, actionSign }) {
           changePassword(info.newPassword);
         }
       }
-    } else {
+    } else if (typeof closeModal === "function") {
       closeModal();
     }
   };
 
-  const onChangeInfo = (event: any) => {
+  const onChangeInfo = (event: { target: { name: string; value: string } }) => {
     setInfo({
       ...info,
       [event.target.name]: event.target.value,
@@ -104,16 +112,14 @@ function FormChangePassword({ closeModal, actionSign }) {
         </Form.Item>
       </Form>
 
-      {/* {validate && (
+      {validate && (
         <ReCAPTCH
           sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
           onChange={(val) => setCapVal(val)}
         />
-      )} */}
+      )}
 
-      <Button type="primary" onClick={onSubmitPassword} 
-      // disabled={!capVal}
-      >
+      <Button type="primary" onClick={onSubmitPassword} disabled={!capVal}>
         Ok change Password
       </Button>
     </div>

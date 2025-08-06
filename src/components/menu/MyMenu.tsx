@@ -98,7 +98,7 @@ function MyMenu() {
         items={items}
       />
       {password && login && user?.email && (
-        <ModalChangePassword openModal={true} closeModal={null} />
+        <ModalChangePassword openModal={true} />
       )}
     </>
   );

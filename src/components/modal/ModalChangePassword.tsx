@@ -3,7 +3,15 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import { FormChangePassword } from "../intex";
 
-function ModalChangePassword({ openModal, closeModal }) {
+interface InputModalChangePassword {
+  openModal: boolean;
+  closeModal?: () => void;
+}
+
+function ModalChangePassword({
+  openModal,
+  closeModal,
+}: InputModalChangePassword) {
   const [localModal, setLocalModal] = useState(true);
 
   const handleCloseModal = () => {
