@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { Form } from "@/components/index";
 import { useAuth } from "@/context/authContext";
+import { UserOutlined } from "@ant-design/icons";
 
 function ButtonLogin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,10 +27,14 @@ function ButtonLogin() {
   };
 
   return (
-    <div className="ml-5">
-      <Button type="primary" onClick={showModal}>
-        {!login && !user?.email?.length ? "Sign In" : "Sign out"}
-      </Button>
+    <div>
+      <button
+        color="primary"
+        onClick={showModal}
+        className="text-amber-500 hover:text-blue-50 transition-colors duration-200"
+      >
+        {!login && !user?.email?.length ? <UserOutlined /> : "Sign out"}
+      </button>
       <Modal
         title={`${
           !login && !user?.email?.length

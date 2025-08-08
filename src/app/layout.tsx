@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/authContext";
 import { AuthProviderNotification } from "@/context/notificationContext";
+import { NavBar } from "@/components";
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],

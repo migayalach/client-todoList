@@ -1,20 +1,26 @@
 "use client";
-import { InputShowError } from "@/types";
+import { NotificationCodes } from "@/types";
 import { createContext, useContext, useState } from "react";
 
+export interface InputNotification {
+  type: NotificationCodes | "";
+  description: string;
+  message?: string;
+}
+
 type NotificationContext = {
-  existError: boolean;
-  showError: (props: InputShowError) => void;
-  closeError: () => void;
-  infoError: InputShowError;
+  showNotification: (props: InputNotification) => void;
+  notification: boolean;
+  infoNotification: InputNotification;
+  closeNotification: () => void;
 };
 
 const NotificationContext = createContext<NotificationContext | null>(null);
 
 export function useAuthNotification(): NotificationContext {
-  const contextError = useContext(NotificationContext);
-  if (!contextError) throw new Error("There is no AuthProvider!");
-  return contextError;
+  const contextNotification = useContext(NotificationContext);
+  if (!contextNotification) throw new Error("There is no AuthProvider!");
+  return contextNotification;
 }
 
 export function AuthProviderNotification({
@@ -22,20 +28,21 @@ export function AuthProviderNotification({
 }: {
   children: React.ReactNode;
 }) {
-  const [existError, setExistError] = useState<boolean>(false);
-  const [infoError, setInfoError] = useState<InputShowError>({
-    head: "",
+  const [notification, setNotification] = useState<boolean>(false);
+  const [infoNotification, setInfoNotification] = useState<InputNotification>({
     type: "",
     description: "",
     message: "",
   });
 
-  const showError = ({ head, type, description, message }: InputShowError) => {
-    console.log(":D");
-    if (!existError) {
-      setExistError(true);
-      setInfoError({
-        head,
+  const showNotification = ({
+    type,
+    description,
+    message,
+  }: InputNotification) => {
+    if (notification === false) {
+      setNotification(true);
+      setInfoNotification({
         type,
         description,
         message,
@@ -43,11 +50,10 @@ export function AuthProviderNotification({
     }
   };
 
-  const closeError = () => {
-    if (existError) {
-      setExistError(false);
-      setInfoError({
-        head: "",
+  const closeNotification = () => {
+    if (notification === true) {
+      setNotification(false);
+      setInfoNotification({
         type: "",
         description: "",
         message: "",
@@ -57,7 +63,12 @@ export function AuthProviderNotification({
 
   return (
     <NotificationContext.Provider
-      value={{ infoError, existError, showError, closeError }}
+      value={{
+        notification,
+        showNotification,
+        infoNotification,
+        closeNotification,
+      }}
     >
       {children}
     </NotificationContext.Provider>

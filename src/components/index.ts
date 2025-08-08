@@ -19,10 +19,12 @@ import NotFound from "./responses/NotFound";
 import Processing from "./responses/Processing";
 import ChangePassword from "./buttons/changePassword/ChangePassword";
 import FormChangePassword from "./form/FormChangePassword/FormChangePassword";
+import Notification from "./notification/Notification";
 
 export {
   ButtonAction,
   CheckBoxAction,
+  Notification,
   List,
   InputTask,
   TableList,

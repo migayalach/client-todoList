@@ -12,7 +12,7 @@ type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 
 function InputTask() {
-  const { showError } = useAuthNotification();
+  const { showNotification, closeNotification } = useAuthNotification();
   const [task, setTask] = useState<boolean>(false);
   const [list, setList] = useState<ItemToList[]>([]);
   const [item, setItem] = useState<ItemToList>({
@@ -52,13 +52,22 @@ function InputTask() {
         setList([...list, addNewItem]);
         setUpdate(true);
       }
-      showError({
-        head: "New Task",
-        type: "success",
-        description: "Congratulations you have added a new task.",
-        message: "Congratulations you have added a new task.",
+      showNotification({
+        type: task ? "info" : "success",
+        message: task ? "Your task was edited" : "A new task was created",
+        description: task
+          ? "You have updated a task to be performed today."
+          : "You have added a new task to perform this day.",
+      });
+    } else {
+      showNotification({
+        type: "error",
+        message: "Please enter task",
+        description:
+          "We're sorry, but you need to enter a new task to add it to the list.",
       });
     }
+    closeNotification();
     setItem({
       id: "",
       description: "",
@@ -92,13 +101,14 @@ function InputTask() {
   return (
     <div>
       <Search
-        placeholder="input search text"
+        placeholder="Plase input a new task"
         enterButton={task ? "Update" : "Add"}
         size="large"
         value={item.description}
         onChange={updateItem}
         onSearch={addItems}
         allowClear
+        className="mb-3"
       />
       <TableList list={list} actionEdit={editTask} />
     </div>

@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { ActionTask, ItemToList } from "@/types";
-import { ButtonAction, CheckBoxAction } from "../index";
+import { ButtonAction, CheckBoxAction, Notification } from "../index";
 import type { ColumnsType } from "antd/es/table";
+import { useAuthNotification } from "@/context/notificationContext";
 
 interface InputData {
   list: ItemToList[];
@@ -18,7 +19,7 @@ interface RenderInput {
 
 function TableList({ list, actionEdit }: InputData) {
   const [data, setData] = useState<ItemToList[]>([]);
-
+  const { showNotification } = useAuthNotification();
   const handleFlag = (id: string, newState: boolean) => {
     setData((prevData) =>
       prevData.map((item) =>
@@ -30,6 +31,11 @@ function TableList({ list, actionEdit }: InputData) {
   const actionTask = (id: string, type: ActionTask) => {
     if (type === "Delete") {
       setData(data.filter((index) => index.id !== id));
+      showNotification({
+        type: "info",
+        message: "Detele task",
+        description: "Task successfully deleted.",
+      });
     } else if (type === "Update") {
       const task = data.find((index) => index.id === id) as ItemToList;
       actionEdit(task);
@@ -37,22 +43,22 @@ function TableList({ list, actionEdit }: InputData) {
   };
 
   const columns: ColumnsType<RenderInput> = [
-    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "N°", dataIndex: "numberItem", key: "numberItem", width: "5%" },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
     },
     {
-      title: "Done",
       key: "actionDone",
+      width: "5%",
       render: ({ id, state }: RenderInput) => (
         <CheckBoxAction id={id} state={state} action={handleFlag} />
       ),
     },
     {
-      title: "Update",
       key: "actionUpdate",
+      width: "5%",
       render: ({ id, state }: RenderInput) => (
         <ButtonAction
           type="Update"
@@ -63,8 +69,8 @@ function TableList({ list, actionEdit }: InputData) {
       ),
     },
     {
-      title: "Delete",
       key: "actionDelete",
+      width: "5%",
       render: ({ id, state }: RenderInput) => (
         <ButtonAction
           type="Delete"
@@ -96,7 +102,10 @@ function TableList({ list, actionEdit }: InputData) {
   }, [list]);
 
   return (
-    <Table columns={columns} dataSource={listMap(data)} pagination={false} />
+    <>
+      <Table columns={columns} dataSource={listMap(data)} pagination={false} />
+      <Notification />
+    </>
   );
 }
 
