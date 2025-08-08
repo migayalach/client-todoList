@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { app } from "@/firebase";
+import { app } from "@/services/firebase";
 import { TextRender } from "@/types";
 import ReCAPTCH from "react-google-recaptcha";
 

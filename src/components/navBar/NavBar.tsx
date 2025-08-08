@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { ButtonLogin, MyMenu } from "../intex";
+import { ButtonLogin, MyMenu } from "../index";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 

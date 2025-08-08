@@ -1,4 +1,4 @@
-import { List, NavBar } from "@/components/intex";
+import { List, NavBar } from "@/components/index";
 
 export default function Home() {
   return (

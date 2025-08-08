@@ -1,4 +1,4 @@
-import { MyActivity, MyNumbers } from "@/components/intex";
+import { MyActivity, MyNumbers } from "@/components/index";
 import React from "react";
 
 function page() {

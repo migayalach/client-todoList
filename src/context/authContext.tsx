@@ -18,7 +18,7 @@ import {
   EmailAuthProvider,
   updatePassword,
 } from "firebase/auth";
-import { app } from "@/firebase";
+import { app } from "@/services/firebase";
 
 interface InputAuth {
   email: string | null;

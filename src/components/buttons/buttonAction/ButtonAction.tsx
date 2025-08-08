@@ -30,7 +30,6 @@ function ButtonAction({ type, id, desable, action }: DataButtonInput) {
   return (
     <>
       <Button
-        className="bg-green-800"
         type="primary"
         icon={
           (type === "Delete" && <DeleteOutlined />) ||

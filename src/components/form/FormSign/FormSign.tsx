@@ -4,7 +4,7 @@ import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { ErrorProps, TextRender } from "@/types";
 import { useAuth } from "@/context/authContext";
-import { Texts } from "@/components/intex";
+import { Texts } from "@/components/index";
 import { castingErrors } from "@/utils/casesFirebaseError";
 
 type FieldType = {

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "antd";
-import { ModalChangePassword } from "@/components/intex";
+import { ModalChangePassword } from "@/components/index";
 
 function ChangePassword() {
   const [isModalOpen, setIsModalOpen] = useState(false);

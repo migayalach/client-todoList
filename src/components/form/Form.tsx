@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ChoseLogin, Texts } from "../intex";
+import { ChoseLogin, Texts } from "../index";
 import FormRestorePassword from "./FormRestorePassword/FormRestorePassword";
 import FormSign from "./FormSign/FormSign";
 
