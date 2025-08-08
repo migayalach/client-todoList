@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Checkbox, notification } from "antd";
+import { Checkbox } from "antd";
 import type { CheckboxProps } from "antd";
-import type { NotificationPlacement } from "antd/es/notification/interface";
+import { useAuthNotification } from "@/context/notificationContext";
+import { Notification } from "@/components";
 
 interface InputCheckBox {
   id: string;
@@ -10,29 +11,29 @@ interface InputCheckBox {
   action: (id: string, state: boolean) => void;
 }
 
-type NotificationType = "success" | "info" | "warning" | "error";
-
 function CheckBoxAction({ id, state, action }: InputCheckBox) {
+  const { showNotification, closeNotification } = useAuthNotification();
   const [value, setValue] = useState(false);
-  const [api, contextHolder] = notification.useNotification();
 
-  const onChange: CheckboxProps["onChange"] = (e) => {
-    setValue(e.target.checked);
+  const onChange: CheckboxProps["onChange"] = (event) => {
+    setValue(event.target.checked);
     action(id, !value);
+    if (value === false) {
+      showNotification({
+        type: "success",
+        message: "Good job",
+        description:
+          "Congratulations, you have done your homework, let's go for more.",
+      });
+    } else if (value === true) {
+      showNotification({
+        type: "warning",
+        message: "Task not yet done",
+        description: "The task is now active again.",
+      });
+    }
+    closeNotification();
     // TODO UPDATE THE STATE IN THE DATA BASE WHEN I'M GOINT TO SENT THE ID AND NEW STATE
-  };
-
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    placement: NotificationPlacement = "topRight"
-  ) => {
-    api[type]({
-      message: "Good job Pepe",
-      description:
-        "Congratulations, you have done your homework, let's go for more.",
-      placement,
-      duration: 2,
-    });
   };
 
   useEffect(() => {
@@ -44,14 +45,8 @@ function CheckBoxAction({ id, state, action }: InputCheckBox) {
 
   return (
     <div>
-      {contextHolder}
-      <Checkbox
-        onChange={onChange}
-        checked={value}
-        onClick={() =>
-          !value && openNotificationWithIcon("success", "bottomRight")
-        }
-      />
+      <Checkbox onChange={onChange} checked={value} />
+      <Notification />
     </div>
   );
 }
