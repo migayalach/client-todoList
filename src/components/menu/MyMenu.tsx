@@ -7,7 +7,7 @@ import {
   Profile,
   ChangePassword,
   ModalChangePassword,
-} from "@/components/intex";
+} from "@/components/index";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 

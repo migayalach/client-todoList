@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { ActionTask, ItemToList } from "@/types";
-import { ButtonAction, CheckBoxAction } from "../intex";
+import { ButtonAction, CheckBoxAction } from "../index";
 import type { ColumnsType } from "antd/es/table";
 
 interface InputData {

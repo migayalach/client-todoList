@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Modal } from "antd";
-import { FormChangePassword } from "../intex";
+import { FormChangePassword } from "../index";
 
 interface InputModalChangePassword {
   openModal: boolean;

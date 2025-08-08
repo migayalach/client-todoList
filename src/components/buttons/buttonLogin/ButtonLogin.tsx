@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import { Form } from "@/components/intex";
+import { Form } from "@/components/index";
 import { useAuth } from "@/context/authContext";
 
 function ButtonLogin() {

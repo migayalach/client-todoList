@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
 import InputTask from "../inputTask/InputTask";
-import { Calendary } from "../intex";
+import { Calendary } from "../index";
 import { useAuth } from "@/context/authContext";
+import { useAuthNotification } from "@/context/notificationContext";
 
 function List() {
   const { user, login } = useAuth();
+  const { existError, infoError } = useAuthNotification();
 
   return (
     <div>

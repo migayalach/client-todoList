@@ -21,12 +21,12 @@ import ChangePassword from "./buttons/changePassword/ChangePassword";
 import FormChangePassword from "./form/FormChangePassword/FormChangePassword";
 
 export {
+  ButtonAction,
+  CheckBoxAction,
   List,
   InputTask,
   TableList,
-  ButtonAction,
   ButtonLogin,
-  CheckBoxAction,
   NavBar,
   Calendary,
   ModalChangePassword,

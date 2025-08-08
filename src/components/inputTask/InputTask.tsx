@@ -5,12 +5,14 @@ import { myHomeworks } from "@/mocks";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import { TableList } from "../intex";
+import { TableList } from "../index";
+import { useAuthNotification } from "@/context/notificationContext";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 
 function InputTask() {
+  const { showError } = useAuthNotification();
   const [task, setTask] = useState<boolean>(false);
   const [list, setList] = useState<ItemToList[]>([]);
   const [item, setItem] = useState<ItemToList>({
@@ -50,6 +52,12 @@ function InputTask() {
         setList([...list, addNewItem]);
         setUpdate(true);
       }
+      showError({
+        head: "New Task",
+        type: "success",
+        description: "Congratulations you have added a new task.",
+        message: "Congratulations you have added a new task.",
+      });
     }
     setItem({
       id: "",
@@ -91,7 +99,6 @@ function InputTask() {
         onChange={updateItem}
         onSearch={addItems}
         allowClear
-        className="bg-black"
       />
       <TableList list={list} actionEdit={editTask} />
     </div>

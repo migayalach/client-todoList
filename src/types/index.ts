@@ -7,3 +7,19 @@ export interface ItemToList {
 export type ActionTask = "Delete" | "Update";
 
 export type TextRender = "Sign In" | "Sing Up" | "Restore";
+
+export type CodeError = "";
+
+export interface ErrorProps {
+  message: string;
+  code: CodeError;
+}
+
+export type NotificationCodes = "success" | "info" | "warning" | "error";
+
+export interface InputShowError {
+  head: string;
+  type: NotificationCodes | "";
+  description: string;
+  message?: string;
+}

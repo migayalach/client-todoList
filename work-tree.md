@@ -23,6 +23,8 @@
                     ├── ButtonAction.tsx
                 └── 📁buttonLogin
                     ├── ButtonLogin.tsx
+                └── 📁changePassword
+                    ├── ChangePassword.tsx
                 └── 📁choseLogin
                     ├── ChoseLogin.tsx
             └── 📁calendary
@@ -30,6 +32,8 @@
             └── 📁checkBoxAction
                 ├── CheckBoxAction.tsx
             └── 📁form
+                └── 📁FormChangePassword
+                    ├── FormChangePassword.tsx
                 └── 📁FormRestorePassword
                     ├── FormRestorePassword.tsx
                 └── 📁FormSign
@@ -42,7 +46,7 @@
             └── 📁menu
                 ├── MyMenu.tsx
             └── 📁modal
-                ├── Modals.tsx
+                ├── ModalChangePassword.tsx
             └── 📁myActivity
                 ├── MyActivity.tsx
             └── 📁myNumbers
@@ -59,14 +63,18 @@
                 ├── TableList.tsx
             └── 📁texts
                 ├── Texts.tsx
-            ├── intex.ts
+            ├── index.ts
         └── 📁context
             ├── authContext.tsx
+            ├── notificationContext.tsx
         └── 📁mocks
             ├── index.ts
+        └── 📁services
+            ├── firebase.ts
         └── 📁types
             ├── index.ts
-        ├── firebase.ts
+        └── 📁utils
+            ├── casesFirebaseError.ts
     ├── .env
     ├── .gitignore
     ├── docker-compose.yml
@@ -81,5 +89,6 @@
     ├── README.md
     ├── tailwind.config.js
     ├── tsconfig.json
+    ├── tsconfig.tsbuildinfo
     └── work-tree.md
 ```

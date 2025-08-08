@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-import { TextRender } from "@/types";
+import { ErrorProps, TextRender } from "@/types";
 import { useAuth } from "@/context/authContext";
+import { Texts } from "@/components/index";
+import { castingErrors } from "@/utils/casesFirebaseError";
 
 type FieldType = {
   email: string;
@@ -21,8 +23,12 @@ function FormSign({ text }: { text: TextRender }) {
     email: "",
     password: "",
   });
+  const [errorInfo, setErrorInfo] = useState<string>("");
 
   const onChangeData = (event: { target: { name: string; value: string } }) => {
+    if (errorInfo.length) {
+      setErrorInfo("");
+    }
     setData({
       ...data,
       [event.target.name]: event.target.value,
@@ -32,16 +38,14 @@ function FormSign({ text }: { text: TextRender }) {
   const onFinish: FormProps<FieldType>["onFinish"] = async () => {
     try {
       if (text === "Sign In") {
-        const ddd = await signInEmail(data.email, data.password);
-        console.log(ddd);
+        await signInEmail(data.email, data.password);
       } else if (text === "Sing Up") {
-        const up = await singUpEmail(data.email, data.password);
-        console.log(up);
+        await singUpEmail(data.email, data.password);
       }
     } catch (error) {
-      // TODO CALL ALER COMPONENT
-      // console.error(error.message);
-      // alert(error.message);
+      const badResults = error as ErrorProps;
+      const results = castingErrors(badResults);
+      setErrorInfo(results!.description);
     }
   };
 
@@ -79,6 +83,8 @@ function FormSign({ text }: { text: TextRender }) {
           onChange={onChangeData}
         />
       </Form.Item>
+
+      {errorInfo.length ? <Texts text={`${errorInfo}`} /> : null}
 
       <Button type="primary" htmlType="submit">
         {text}
