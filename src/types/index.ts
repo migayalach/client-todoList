@@ -16,3 +16,10 @@ export interface ErrorProps {
 }
 
 export type NotificationCodes = "success" | "info" | "warning" | "error";
+
+export interface InputShowError {
+  head: string;
+  type: NotificationCodes | "";
+  description: string;
+  message?: string;
+}
