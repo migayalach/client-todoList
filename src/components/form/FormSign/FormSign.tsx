@@ -86,7 +86,11 @@ function FormSign({ text }: { text: TextRender }) {
 
       {errorInfo.length ? <Texts text={`${errorInfo}`} /> : null}
 
-      <Button type="primary" htmlType="submit">
+      <Button
+        type="primary"
+        htmlType="submit"
+        className="w-full h-[40px] text-[18px]"
+      >
         {text}
       </Button>
     </Form>
