@@ -50,7 +50,7 @@ function FormRestorePassword({ text }: { text: TextRender }) {
       autoComplete="off"
     >
       <Form.Item<FieldType>
-        label="Username"
+        label="Email"
         name="email"
         rules={[
           { required: true, message: "Please input your username!" },
@@ -62,15 +62,23 @@ function FormRestorePassword({ text }: { text: TextRender }) {
       >
         <Input name="email" value={data.email} onChange={onChangeData} />
       </Form.Item>
-      {data.email.length > 10 && (
-        <ReCAPTCH
-          sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
-          onChange={(val) => setCapVal(val)}
-        />
-      )}
-      <Button type="primary" htmlType="submit" disabled={!capVal}>
-        {text}
-      </Button>
+
+      <div className="flex flex-col justify-center items-center">
+        {data.email.length > 10 && (
+          <ReCAPTCH
+            sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
+            onChange={(val) => setCapVal(val)}
+          />
+        )}
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={!capVal}
+          className="w-full h-[38px] text-[19px]"
+        >
+          {text}
+        </Button>
+      </div>
     </Form>
   );
 }
