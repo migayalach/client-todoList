@@ -22,12 +22,13 @@ function ChoseLogin({ text }: InputChoseLogin) {
 
   return (
     <Button
-      className="mt-5 h-10"
-      type="primary"
+      className="mt-5 h-10 text-[16px]"
+      color="danger"
+      variant="solid"
       htmlType="submit"
       onClick={handleGoogleAuth}
     >
-      <i className="text-[20px]">
+      <i className="text-[22px]">
         <GoogleOutlined />
       </i>
       {text}

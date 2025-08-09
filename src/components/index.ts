@@ -20,6 +20,7 @@ import Processing from "./responses/Processing";
 import ChangePassword from "./buttons/changePassword/ChangePassword";
 import FormChangePassword from "./form/FormChangePassword/FormChangePassword";
 import Notification from "./notification/Notification";
+import ClientLayout from "./clientLayout/Client-layout";
 
 export {
   ButtonAction,
@@ -44,4 +45,5 @@ export {
   Processing,
   ChangePassword,
   FormChangePassword,
+  ClientLayout,
 };
