@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { notification as notificationAntd } from "antd";
 import { useAuthNotification } from "@/context/notificationContext";
 import { NotificationCodes } from "@/types";
@@ -8,8 +8,7 @@ function Notification() {
   const [api, contextHolder] = notificationAntd.useNotification();
   const { infoNotification, notification, closeNotification } =
     useAuthNotification();
-  const hasShown = useRef(false);
-  
+
   useEffect(() => {
     const type = infoNotification.type as NotificationCodes;
     if (notification && infoNotification.message && api[type]) {
