@@ -9,7 +9,11 @@ function Calendary() {
     console.log(date, dateString);
   };
 
-  return <DatePicker onChange={onChange} needConfirm />;
+  return (
+    <div className="mb-3">
+      <DatePicker onChange={onChange} needConfirm />
+    </div>
+  );
 }
 
 export default Calendary;
