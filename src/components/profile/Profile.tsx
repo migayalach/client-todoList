@@ -8,7 +8,6 @@ const url =
 function Profile() {
   return (
     <Avatar
-      className="ml-5"
       style={{ backgroundColor: "#87d068" }}
       icon={<UserOutlined />}
     />
