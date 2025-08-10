@@ -16,9 +16,9 @@ function ChangePassword() {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <button className="bg-none" onClick={showModal}>
         Change Password
-      </Button>
+      </button>
       {isModalOpen && (
         <ModalChangePassword
           openModal={isModalOpen}

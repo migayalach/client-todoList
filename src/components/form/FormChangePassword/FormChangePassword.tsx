@@ -86,7 +86,6 @@ function FormChangePassword({
 
   return (
     <div>
-      <h1>FormChangePassword</h1>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -112,16 +111,23 @@ function FormChangePassword({
         </Form.Item>
       </Form>
 
-      {validate && (
-        <ReCAPTCH
-          sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
-          onChange={(val) => setCapVal(val)}
-        />
-      )}
+      <div className="flex flex-col items-center justify-center">
+        {validate && (
+          <ReCAPTCH
+            sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ""}
+            onChange={(val) => setCapVal(val)}
+          />
+        )}
 
-      <Button type="primary" onClick={onSubmitPassword} disabled={!capVal}>
-        Ok change Password
-      </Button>
+        <Button
+          className="h-10 text-[15px]"
+          type="primary"
+          onClick={onSubmitPassword}
+          disabled={!capVal}
+        >
+          Change Password
+        </Button>
+      </div>
     </div>
   );
 }

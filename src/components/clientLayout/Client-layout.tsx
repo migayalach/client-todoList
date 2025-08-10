@@ -16,7 +16,14 @@ export default function ClientLayout({
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header style={{ display: "flex", alignItems: "center", padding: 25 }}>
+      <Header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: 25,
+          paddingRight: 0,
+        }}
+      >
         <div className="demo-logo" />
         <NavBar />
       </Header>

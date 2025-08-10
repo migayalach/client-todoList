@@ -3,13 +3,17 @@ import React, { useState } from "react";
 import { ButtonLogin, MyMenu } from "../index";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
+import { HomeOutlined } from "@ant-design/icons";
 
 function NavBar() {
   const { user, login } = useAuth();
   const [current, setCurrent] = useState("home");
 
-  const changeCurrent = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    setCurrent(event.currentTarget.id);
+  const changeCurrent = (event: React.MouseEvent<HTMLElement>) => {
+    const idElement = event.currentTarget.id;
+    console.log(idElement);
+
+    setCurrent(idElement);
   };
 
   return (
@@ -21,7 +25,7 @@ function NavBar() {
           id="home"
           onClick={changeCurrent}
         >
-          LOGO
+          <HomeOutlined className="text-[22px]" />
         </Link>
       </div>
       <div className="w-[70%] flex justify-around items-center">
@@ -65,7 +69,7 @@ function NavBar() {
         {!user?.email?.length && !login ? (
           <ButtonLogin />
         ) : (
-          <div>
+          <div id="menu" onClick={changeCurrent}>
             <MyMenu />
           </div>
         )}
