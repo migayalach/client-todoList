@@ -22,16 +22,13 @@ function ModalChangePassword({
     <>
       {openModal ? (
         <Modal
-          title="Basic Modal"
+          title="Change your password"
           closable={{ "aria-label": "Custom Close Button" }}
           open={closeModal === null ? localModal : openModal}
           onOk={typeof closeModal && closeModal}
           onCancel={typeof closeModal && closeModal}
           footer={false}
         >
-          <p>OPEN FormChangePassword</p>
-          <p>OPEN FormChangePassword</p>
-          <p>OPEN FormChangePassword</p>
           <FormChangePassword
             closeModal={closeModal}
             actionSign={handleCloseModal}
